@@ -42,7 +42,7 @@ class Place(models.Model):
 class ImagePlace(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     image = models.ImageField(upload_to='media/', verbose_name='Изображение')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
+    place = models.ForeignKey(Place, on_delete=models.SET_NULL, related_name='images', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
