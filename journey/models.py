@@ -37,3 +37,18 @@ class Place(models.Model):
     # def get_absolute_url(self):
     #     return reverse('place', kwargs={'slug': self.slug})
 
+
+class ImagePlace(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Название')
+    description = models.TextField(verbose_name='Описание', blank=True)
+    image = models.ImageField(upload_to='media/', verbose_name='Изображение')
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Изображение места'
+        verbose_name_plural = 'Изображения мест'
+
+    def __str__(self):
+        return self.title
