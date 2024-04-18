@@ -7,6 +7,7 @@ app_name = 'journey'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('photo/<int:image_id>/', views.image_detail, name='image_detail'),
 ]
 
 if settings.DEBUG:

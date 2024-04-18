@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from django.urls import reverse, resolve
 from django.utils.text import slugify
 
 # Create your models here.
@@ -50,6 +50,9 @@ class ImagePlace(models.Model):
     class Meta:
         verbose_name = 'Изображение места'
         verbose_name_plural = 'Изображения мест'
+
+    def get_absolute_url(self):
+        return self.image.url
 
     def __str__(self):
         return self.title
