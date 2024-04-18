@@ -13,6 +13,7 @@ class PlaceManager(models.Manager):
 class Place(models.Model):
     objects = PlaceManager()
     title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
+    description_short = models.TextField(verbose_name='Краткое описание')
     description = models.TextField(verbose_name='Описание')
     lng = models.FloatField(verbose_name='Долгота')
     lat = models.FloatField(verbose_name='Широта')

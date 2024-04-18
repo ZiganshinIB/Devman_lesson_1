@@ -6,9 +6,9 @@ from . models import Place, ImagePlace
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_published')
+    list_display = ('title', 'description_short', 'is_published')
     list_filter = ('is_published', 'created_at', 'updated_at')
-    list_editable = ('is_published',)
+    list_editable = ('is_published', 'description_short')
     search_fields = ('title', 'description')
     ordering = ('title',)
     prepopulated_fields = {'slug': ('title',)}
