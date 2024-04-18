@@ -12,7 +12,7 @@ class PlaceManager(models.Manager):
 
 class Place(models.Model):
     objects = PlaceManager()
-    title = models.CharField(max_length=100, verbose_name='Название')
+    title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     lng = models.FloatField(verbose_name='Долгота')
     lat = models.FloatField(verbose_name='Широта')
@@ -22,7 +22,7 @@ class Place(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('slug',)
+        unique_together = (['slug', 'title'])
         ordering = ['title']
         verbose_name = 'Место'
         verbose_name_plural = 'Места'
@@ -41,7 +41,6 @@ class Place(models.Model):
 
 class ImagePlace(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание', blank=True)
     image = models.ImageField(upload_to='media/', verbose_name='Изображение')
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
     created_at = models.DateTimeField(auto_now_add=True)
