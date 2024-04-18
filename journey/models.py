@@ -4,6 +4,7 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+
 class PlaceManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_published=True)
