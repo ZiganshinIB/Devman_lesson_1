@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from  django.http import HttpResponse, JsonResponse
 from . models import Place, ImagePlace
 
@@ -47,3 +47,12 @@ def get_markers(request,):
           }
         } for place in places]
     return JsonResponse(markers)
+
+
+def place(request, pk):
+    place = get_object_or_404(Place, pk=pk)
+    return render(request, 'journey/place.html', {'place': place})
+    return None
+
+def handle404(request, exception):
+    return render(request, '404.html', status=404)
