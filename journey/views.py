@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, redirect, get_object_or_404
 from  django.http import HttpResponse, JsonResponse
 from . models import Place, ImagePlace
@@ -51,8 +53,18 @@ def get_markers(request,):
 
 def place(request, pk):
     place = get_object_or_404(Place, pk=pk)
-    return render(request, 'journey/place.html', {'place': place})
-    return None
+    data = {
+        "title": f"{place.title}",
+        "imgs": [image.get_absolute_url() for image in place.images.all()],
+        "description_short": f"{place.description_short}",
+        "description_long": f"{place.description}",
+        "coordinates": {
+            "lng": f"{place.lng}",
+            "lat": f"{place.lat}",
+        }
+    }
+    return JsonResponse(data, safe=True, json_dumps_params={'ensure_ascii': False, 'indent': 2})
+
 
 def handle404(request, exception):
     return render(request, '404.html', status=404)
