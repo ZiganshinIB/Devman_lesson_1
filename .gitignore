@@ -1,3 +1,4 @@
+./media/media/*
 *.7z
 config.py
 *.sqlite3
