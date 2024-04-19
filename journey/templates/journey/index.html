@@ -31,32 +31,20 @@
 <script id="places-geojson" type="application/json">
     {
       "type": "FeatureCollection",
-      "features": [
+      "features": [{% for place in places %}
         {
           "type": "Feature",
           "geometry": {
             "type": "Point",
-            "coordinates": [37.62, 55.793676]
+            "coordinates": [{{place.lng}}, {{place.lat}}]
           },
           "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "{% url 'journey:get_place' 'ekskursionnaya-kompaniya-legendy-moskvy' %}"
+            "title": "{{ place.market_label }}",
+            "placeId": "{{ place.place_id }}",
+            "detailsUrl": "{% url 'journey:get_place' place.slug %}"
           }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "{% url 'journey:get_place' 'ekskursionnyj-proekt-kryshi24rf' %}"
-          }
-        }
-      ]
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}]
     }
   </script>
 
