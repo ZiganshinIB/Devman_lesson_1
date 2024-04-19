@@ -30,3 +30,20 @@ def get_place(request, slug):
         }
     }
     return JsonResponse(data)
+
+
+def get_markers(request, lng, lat, radius):
+    places = Place.objects.all()
+    markers = [{
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [place.lng, place.lat]
+          },
+          "properties": {
+            "title": f"{place.market_label}",
+            "placeId": f"{place.place_id}",
+            "detailsUrl": "{% url 'journey:get_place' " + "'" + place.slug + "'" +" %}"
+          }
+        } for place in places]
+    return JsonResponse(markers)
