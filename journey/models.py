@@ -12,6 +12,8 @@ class PlaceManager(models.Manager):
 
 class Place(models.Model):
     objects = PlaceManager()
+    market_label = models.CharField(max_length=100, db_index=True, verbose_name='Маркет')
+    place_id = models.CharField(max_length=100, db_index=True, unique=True, verbose_name='ID места')
     title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
     description_short = models.TextField(verbose_name='Краткое описание')
     description = models.TextField(verbose_name='Описание')
