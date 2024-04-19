@@ -32,7 +32,7 @@ def get_place(request, slug):
     return JsonResponse(data)
 
 
-def get_markers(request, lng, lat, radius):
+def get_markers(request,):
     places = Place.objects.all()
     markers = [{
           "type": "Feature",
