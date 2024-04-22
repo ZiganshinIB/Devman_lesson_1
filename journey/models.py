@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse, resolve
 from django.utils.text import slugify
 
+
+from tinymce.models import HTMLField
 # Create your models here.
 
 
@@ -16,7 +18,7 @@ class Place(models.Model):
     place_id = models.CharField(max_length=100, db_index=True, unique=True, verbose_name='ID места')
     title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
     description_short = models.TextField(verbose_name='Краткое описание')
-    description = models.TextField(verbose_name='Описание')
+    description = HTMLField(verbose_name='Описание')
     lng = models.FloatField(verbose_name='Долгота')
     lat = models.FloatField(verbose_name='Широта')
     slug = models.SlugField(unique=True)
