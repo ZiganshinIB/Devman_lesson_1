@@ -4,6 +4,10 @@ from . models import Place, ImagePlace
 # Register your models here.
 
 
+class ImagePlaceInline(admin.StackedInline):
+    model = ImagePlace
+
+
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ('title', 'description_short', 'is_published')
@@ -12,11 +16,14 @@ class PlaceAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     ordering = ('title',)
     prepopulated_fields = {'slug': ('title',)}
+    inlines = [ImagePlaceInline]
 
 
 @admin.register(ImagePlace)
 class ImagePlaceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'place')
+    list_display_links = ('title',)
+    list_display = ('title', 'place', 'position')
     list_filter = ('place', 'created_at', 'updated_at')
+    list_editable = ('position',)
     search_fields = ('title', 'place__title')
-    ordering = ('place__title', 'title',)
+    ordering = ('place__title', 'position', 'title',)

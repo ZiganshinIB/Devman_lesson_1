@@ -48,10 +48,13 @@ class ImagePlace(models.Model):
     place = models.ForeignKey(Place, on_delete=models.SET_NULL, related_name='images', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    position = models.PositiveIntegerField(verbose_name='Позиция', default=1)
 
     class Meta:
         verbose_name = 'Изображение места'
         verbose_name_plural = 'Изображения мест'
+        ordering = ['position']
+        unique_together = ('place', 'position')
 
     def get_absolute_url(self):
         return self.image.url
