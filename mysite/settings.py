@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminsortable2',
     'journey.apps.JourneyConfig',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
