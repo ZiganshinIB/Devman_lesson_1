@@ -2,21 +2,23 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
+from adminsortable2.admin import SortableAdminMixin, SortableTabularInline, SortableAdminBase
+
 from . models import Place, ImagePlace
 # Register your models here.
 
 
-class ImagePlaceInline(admin.TabularInline):
+class ImagePlaceInline(SortableTabularInline):
     readonly_fields = ('get_preview',)
     model = ImagePlace
     def get_preview(self, obj):
-        return mark_safe('<img src="{url}" width="200" />'.format(url = obj.image.url, width=100, height=100))
+        return format_html('<img src="{url}" width="200" />', url = obj.image.url, )
     fields = ('title', 'image', 'get_preview', 'position')
     ordering = ('position',)
 
 
 @admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
+class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     list_display = ('title', 'description_short', 'is_published')
     list_filter = ('is_published', 'created_at', 'updated_at')
     list_editable = ('is_published', 'description_short')
@@ -27,7 +29,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 @admin.register(ImagePlace)
-class ImagePlaceAdmin(admin.ModelAdmin):
+class ImagePlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     readonly_fields = ('get_image',)
 
     def get_image(self, obj):
@@ -38,4 +40,4 @@ class ImagePlaceAdmin(admin.ModelAdmin):
     list_filter = ('place', 'created_at', 'updated_at')
     list_editable = ('position',)
     search_fields = ('title', 'place__title')
-    ordering = ('place__title', 'position', 'title',)
+    ordering = ('position', 'title',)
