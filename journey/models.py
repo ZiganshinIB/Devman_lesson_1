@@ -54,7 +54,7 @@ class ImagePlace(models.Model):
         verbose_name = 'Изображение места'
         verbose_name_plural = 'Изображения мест'
         ordering = ['position']
-        unique_together = ('place', 'position')
+        # unique_together = ('place', 'position')
 
     def get_absolute_url(self):
         return self.image.url
