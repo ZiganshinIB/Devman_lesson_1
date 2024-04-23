@@ -1,4 +1,5 @@
 # Проект "Яндекс.Афиша"
+https://ziganshinib.pythonanywhere.com/
 ![img.png](git_media/img.png)
 ![img.png](git_media/img2.png)
 ## Как запустить проект 
