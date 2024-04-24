@@ -20,7 +20,7 @@ def get_place(request, pk):
     images = ImagePlace.objects.filter(place=place)
     data = {
         "title": f"{place.title}",
-        "imgs": [ image.image.url for image in images ],
+        "imgs": [image.image.url for image in images],
         "description_short": f"{place.description_short}",
         "description_long": f"{place.description}",
         "coordinates": {
@@ -42,7 +42,7 @@ def get_markers(request,):
           "properties": {
             "title": f"{place.market_label}",
             "placeId": f"{place.place_id}",
-            "detailsUrl": "{% url 'journey:get_place' " + "'" + place.pk + "'" +" %}"
+            "detailsUrl": "{% url 'journey:get_place' " + "'" + place.pk + "'" + " %}"
           }
         } for place in places]
     return JsonResponse(markers)

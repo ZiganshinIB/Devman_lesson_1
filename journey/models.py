@@ -30,7 +30,7 @@ class Place(models.Model):
 
 
 class ImagePlace(models.Model):
-    image = models.ImageField( verbose_name='Изображение')
+    image = models.ImageField(verbose_name='Изображение')
     place = models.ForeignKey(Place, on_delete=models.SET_NULL, related_name='images', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
