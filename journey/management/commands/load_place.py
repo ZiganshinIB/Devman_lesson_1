@@ -1,12 +1,11 @@
 from django.core.management.base import BaseCommand
 from django.core.files import File
+from django.utils.text import slugify
 
 import requests
 import json
-from PIL import Image
 from io import BytesIO
 
-from django.utils.text import slugify
 
 from journey.models import Place, ImagePlace
 
