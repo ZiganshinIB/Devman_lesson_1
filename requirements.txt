@@ -2,8 +2,5 @@ Django~=4.2
 pillow~=10.3.
 django-admin-sortable2~=2.1.
 django-tinymce~=4.0
-urllib3~=2.2
 requests~=2.31
-certifi~=2024.2
-charset-normalizer~=3.3
-idna
+python-dotenv~=1.0

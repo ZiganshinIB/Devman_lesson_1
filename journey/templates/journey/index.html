@@ -39,9 +39,9 @@
             "coordinates": [{{place.lng}}, {{place.lat}}]
           },
           "properties": {
-            "title": "{{ place.market_label }}",
+            "title": "{{ place.title }}",
             "placeId": "{{ place.place_id }}",
-            "detailsUrl": "{% url 'journey:get_place' place.slug %}"
+            "detailsUrl": "{% url 'journey:get_place' place.pk %}"
           }
         }{% if not forloop.last %},{% endif %}
         {% endfor %}]

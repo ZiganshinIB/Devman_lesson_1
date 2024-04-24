@@ -18,12 +18,12 @@ def image_detail(request, image_id):
     return redirect(image.get_absolute_url())
 
 
-def get_place(request, slug):
-    place = Place.objects.get(slug=slug)
+def get_place(request, pk):
+    place = Place.objects.get(pk=pk)
     images = ImagePlace.objects.filter(place=place)
     data = {
         "title": f"{place.title}",
-        "imgs": [ image.get_absolute_url() for image in images ],
+        "imgs": [ image.image.url for image in images ],
         "description_short": f"{place.description_short}",
         "description_long": f"{place.description}",
         "coordinates": {
@@ -45,7 +45,7 @@ def get_markers(request,):
           "properties": {
             "title": f"{place.market_label}",
             "placeId": f"{place.place_id}",
-            "detailsUrl": "{% url 'journey:get_place' " + "'" + place.slug + "'" +" %}"
+            "detailsUrl": "{% url 'journey:get_place' " + "'" + place.pk + "'" +" %}"
           }
         } for place in places]
     return JsonResponse(markers)
@@ -55,7 +55,7 @@ def place(request, pk):
     place = get_object_or_404(Place, pk=pk)
     data = {
         "title": f"{place.title}",
-        "imgs": [image.get_absolute_url() for image in place.images.all()],
+        "imgs": [image.image.url for image in place.images.all()],
         "description_short": f"{place.description_short}",
         "description_long": f"{place.description}",
         "coordinates": {

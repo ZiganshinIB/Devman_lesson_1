@@ -22,7 +22,6 @@ class Command(BaseCommand):
         place_json = json.loads(response.content)
         place = Place()
         place.title = place_json['title']
-        place.market_label = place_json['title']
         place.place_id = slugify(place_json['title'])
         place.description = place_json['description_long']
         place.description_short = place_json['description_short']
@@ -36,10 +35,8 @@ class Command(BaseCommand):
             buf.write(p.content)
             image = ImagePlace()
             image.image = File(buf, name=title)
-            image.title = title
             image.place = place
             image.save()
-
 
     def handle(self, *args, **options):
         url = options['url']

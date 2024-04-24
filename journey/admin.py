@@ -24,7 +24,6 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     list_editable = ('is_published', 'description_short')
     search_fields = ('title', 'description')
     ordering = ('title',)
-    prepopulated_fields = {'slug': ('title',)}
     inlines = [ImagePlaceInline]
 
 
@@ -35,9 +34,8 @@ class ImagePlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     def get_image(self, obj):
         return format_html('<img src="{url}" height="200"/> '.format(url = obj.image.url, ))
 
-    list_display_links = ('title',)
-    list_display = ('title', 'place', 'position')
+    list_display = ( 'place', 'position')
     list_filter = ('place', 'created_at', 'updated_at')
     list_editable = ('position',)
-    search_fields = ('title', 'place__title')
-    ordering = ('position', 'title',)
+    search_fields = ('place__title',)
+    ordering = ('position',)
