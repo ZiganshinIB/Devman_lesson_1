@@ -1,19 +1,6 @@
 from django.db import models
-from django.urls import reverse, resolve
-from django.utils.text import slugify
-
-import random
-import string
 
 from tinymce.models import HTMLField
-# Create your models here.
-
-
-def rand_slug():
-    """
-    Generate a random slug consisting of 3 characters using ASCII letters and digits.
-    """
-    return ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(3)])
 
 
 class PlaceManager(models.Manager):

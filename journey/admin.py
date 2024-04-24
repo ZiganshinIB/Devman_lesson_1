@@ -5,7 +5,6 @@ from django.utils.safestring import mark_safe
 from adminsortable2.admin import SortableAdminMixin, SortableTabularInline, SortableAdminBase
 
 from . models import Place, ImagePlace
-# Register your models here.
 
 
 class ImagePlaceInline(SortableTabularInline):

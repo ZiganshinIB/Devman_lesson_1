@@ -4,8 +4,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from  django.http import HttpResponse, JsonResponse
 from . models import Place, ImagePlace
 
-# Create your views here.
-
 
 def index(request):
     places = Place.objects.all()
