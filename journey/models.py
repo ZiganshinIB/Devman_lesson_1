@@ -12,8 +12,8 @@ class Place(models.Model):
     objects = PlaceManager()
     place_id = models.CharField(max_length=100, db_index=True, unique=False, verbose_name='ID места')
     title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
-    description_short = models.TextField(verbose_name='Краткое описание')
-    description = HTMLField(verbose_name='Описание')
+    description_short = models.TextField(blank=True, verbose_name='Краткое описание')
+    description = HTMLField(blank=True, verbose_name='Описание')
     lng = models.FloatField(verbose_name='Долгота')
     lat = models.FloatField(verbose_name='Широта')
     is_published = models.BooleanField(default=True)
@@ -31,7 +31,7 @@ class Place(models.Model):
 
 class ImagePlace(models.Model):
     image = models.ImageField(verbose_name='Изображение')
-    place = models.ForeignKey(Place, on_delete=models.SET_NULL, related_name='images', blank=True, null=True)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images', blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     position = models.PositiveIntegerField(verbose_name='Позиция', default=0, blank=False, null=False)
