@@ -9,7 +9,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('places/<int:pk>/', views.place, name='place'),
     path('place/<int:pk>/', views.get_place, name='get_place'),
-    path('photo/<int:image_id>/', views.image_detail, name='image_detail'),
 ]
 
 if settings.DEBUG:

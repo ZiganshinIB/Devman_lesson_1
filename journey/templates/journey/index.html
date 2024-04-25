@@ -28,25 +28,8 @@
 {% endblock %}
 
 {% block scripts %}
-<script id="places-geojson" type="application/json">
-    {
-      "type": "FeatureCollection",
-      "features": [{% for place in places %}
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [{{place.lng}}, {{place.lat}}]
-          },
-          "properties": {
-            "title": "{{ place.title }}",
-            "placeId": "{{ place.place_id }}",
-            "detailsUrl": "{% url 'journey:get_place' place.pk %}"
-          }
-        }{% if not forloop.last %},{% endif %}
-        {% endfor %}]
-    }
-  </script>
+{{ geojson|json_script:"places-geojson" }}
+
 
   <script id="app-template" type="text/template">
     <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">

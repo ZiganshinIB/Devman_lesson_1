@@ -18,10 +18,10 @@ class ImagePlaceInline(SortableTabularInline):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
-    list_display = ('title', 'description_short', 'is_published')
+    list_display = ('title', 'short_description', 'is_published')
     list_filter = ('is_published', 'created_at', 'updated_at')
-    list_editable = ('is_published', 'description_short')
-    search_fields = ('title', 'description')
+    list_editable = ('is_published', 'short_description')
+    search_fields = ('title', 'long_description')
     ordering = ('title',)
     inlines = [ImagePlaceInline]
 
