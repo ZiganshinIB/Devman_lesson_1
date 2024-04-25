@@ -16,18 +16,18 @@ def load_places(url):
     place = Place()
     place.title = place_json['title']
     place.place_id = slugify(place_json['title'])
-    place.description = place_json['description_long']
-    place.description_short = place_json['description_short']
+    place.long_description = place_json['description_long']
+    place.short_description = place_json['description_short']
     place.lat = place_json['coordinates']['lat']
     place.lng = place_json['coordinates']['lng']
     place.save()
     for img in place_json['imgs']:
         p = requests.get(img)
-        title = img.split('/')[-1]
+        name = img.split('/')[-1]
         buf = BytesIO()
         buf.write(p.content)
         image = ImagePlace()
-        image.image = File(buf, name=title)
+        image.image = File(buf, name=name)
         image.place = place
         image.save()
 
