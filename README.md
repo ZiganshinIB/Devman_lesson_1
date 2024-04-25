@@ -1,38 +1,17 @@
 # Проект "Яндекс.Афиша"
-https://ziganshinib.pythonanywhere.com/
+Пример проекта можно увидеть по следующей [ссылке](https://ziganshinib.pythonanywhere.com/)
 ![img.png](git_media/img.png)
 ![img.png](git_media/img2.png)
 ## Как запустить проект 
-* Скачай программу 
+1. Необходимо Скачать проект  
 ```shell
 git clone https://github.com/ZiganshinIB/Devman_lesson_1
 ```
-* (Опцианально) Создание виртуланого окружения
+2. Необходимо установить зависимости
 ```shell
-cd ..
-python3 -m venv myenv
-source myenv/bin/activate
-cd mysite
+pip install -r Devman_lesson_1/requirements.txt
 ```
-* Установка зависимостей
-```shell
-pip install -r requirements.txt
-```
-* Редактируй mysite/settings.py
-* 1) Введите свой `SECRET_KEY` в файл .env. Инструкция по созданию переменных среды https://help.pythonanywhere.com/pages/environment-variables-for-web-apps/ 
-```python
-import os
-from dotenv import load_dotenv
-project_folder = os.path.expanduser('~/learn_python/dvmn_start')  # adjust as appropriate
-load_dotenv(os.path.join(project_folder, '.env'))
-
-SECRET_KEY = os.environ['SECRET_KEY_DJANGO']
-```
-* 2. Добавь свой `ALLOWED_HOSTS`
-```python
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', <YOUR_ADDRESS>]
-```
-* Мигрируте БД
+3. Необходимо мигрировать 
 ```shell
 python3 manage.py migrate
 ```
