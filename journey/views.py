@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 
-from . models import Place, ImagePlace
+from . models import Place
 
 
 def index(request):
