@@ -10,13 +10,14 @@ class BaseTimeModel(models.Model):
     class Meta:
         abstract = True
 
+
 class PlaceManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_published=True)
 
 
 class Place(BaseTimeModel):
-    objects = PlaceManager()
+
     place_id = models.CharField(max_length=100, db_index=True, unique=False, verbose_name='ID места')
     title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
     short_description = models.TextField(blank=True, verbose_name='Краткое описание')
@@ -24,6 +25,8 @@ class Place(BaseTimeModel):
     lng = models.FloatField(verbose_name='Долгота')
     lat = models.FloatField(verbose_name='Широта')
     is_published = models.BooleanField(default=True)
+
+    objects = PlaceManager()
 
     class Meta:
         ordering = ['title']
