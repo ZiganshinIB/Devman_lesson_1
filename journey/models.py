@@ -18,7 +18,6 @@ class PlaceManager(models.Manager):
 
 class Place(BaseTimeModel):
 
-    place_id = models.CharField(max_length=100, db_index=True, unique=False, verbose_name='ID места')
     title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
     short_description = models.TextField(blank=True, verbose_name='Краткое описание')
     long_description = HTMLField(blank=True, verbose_name='Описание')
@@ -39,8 +38,8 @@ class Place(BaseTimeModel):
 
 class ImagePlace(BaseTimeModel):
     image = models.ImageField(verbose_name='Изображение')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images', blank=False, null=False)
-    position = models.PositiveIntegerField(verbose_name='Позиция', default=0, blank=False, null=False)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
+    position = models.PositiveIntegerField(verbose_name='Позиция', default=0)
 
     class Meta:
         verbose_name = 'Изображение места'

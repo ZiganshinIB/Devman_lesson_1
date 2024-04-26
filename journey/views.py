@@ -15,7 +15,7 @@ def index(request):
         },
         "properties": {
             "title": f"{place.title}",
-            "placeId": f"{place.place_id}",
+            "placeId": f"{place.id}",
             "detailsUrl": reverse("journey:place", kwargs={"pk": place.pk}),
         }
     } for place in places]
