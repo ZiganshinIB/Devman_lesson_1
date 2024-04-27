@@ -11,8 +11,8 @@ class ImagePlaceInline(SortableTabularInline):
     model = ImagePlace
 
     def get_preview(self, obj):
-        return format_html('<img src="{url}" width="200" />', url=obj.image.url, )
-    fields = ('title', 'image', 'get_preview', 'position')
+        return format_html('<img src="{url}"  style="max-height: 200px;" />', url=obj.image.url, )
+    fields = ('image', 'get_preview', 'position')
     ordering = ('position',)
 
 
@@ -31,10 +31,10 @@ class ImagePlaceAdmin(SortableAdminMixin, admin.ModelAdmin):
     readonly_fields = ('get_image',)
 
     def get_image(self, obj):
-        return format_html('<img src="{url}" height="200"/> '.format(url=obj.image.url, ))
+        return format_html('<img src="{url}" style="max-height: 200px;"/> '.format(url=obj.image.url, ))
 
-    list_display = ('place', 'position')
-    list_filter = ('place', 'created_at', 'updated_at')
+    raw_id_fields = ('place',)
+    list_display = ('place','position')
+    list_filter = ('created_at', 'updated_at')
     list_editable = ('position',)
-    search_fields = ('place__title',)
     ordering = ('position',)

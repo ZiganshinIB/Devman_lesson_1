@@ -39,7 +39,7 @@ class Place(BaseTimeModel):
 class ImagePlace(BaseTimeModel):
     image = models.ImageField(verbose_name='Изображение')
     place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='images')
-    position = models.PositiveIntegerField(verbose_name='Позиция', default=0)
+    position = models.PositiveIntegerField(verbose_name='Позиция', default=0, db_index=True)
 
     class Meta:
         verbose_name = 'Изображение места'

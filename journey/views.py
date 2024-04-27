@@ -1,8 +1,9 @@
+from django.db.models import Prefetch
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from . models import Place
+from .models import Place, ImagePlace
 
 
 def index(request):
@@ -16,19 +17,19 @@ def index(request):
         "properties": {
             "title": f"{place.title}",
             "placeId": f"{place.id}",
-            "detailsUrl": reverse("journey:place", kwargs={"pk": place.pk}),
+            "detailsUrl": reverse('journey:place', args=[place.id]),
         }
     } for place in places]
-    Geo_JSON = {"type": "FeatureCollection", "features": markers}
+    geo_json = {"type": "FeatureCollection", "features": markers}
     context = {
-        "geojson": Geo_JSON
+        "geojson": geo_json
     }
     return render(request, 'journey/index.html', context)
 
 
 def place(request, pk):
-    place = get_object_or_404(Place, pk=pk)
-    data = {
+    images = Place.objects.get(id=pk).select_related('images')
+    geo_data = {
         "title": f"{place.title}",
         "imgs": [image.image.url for image in place.images.all()],
         "description_short": f"{place.short_description}",
@@ -38,8 +39,5 @@ def place(request, pk):
             "lat": f"{place.lat}",
         }
     }
-    return JsonResponse(data, safe=True, json_dumps_params={'ensure_ascii': False, 'indent': 2})
+    return JsonResponse(geo_data, safe=True, json_dumps_params={'ensure_ascii': False, 'indent': 2})
 
-
-def handle404(request, exception):
-    return render(request, '404.html', status=404)

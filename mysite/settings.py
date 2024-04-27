@@ -12,6 +12,9 @@ DEBUG = env.bool('DJANGO_DEBUG', False)
 
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', ['127.0.0.1'])
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -22,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'adminsortable2',
     'journey.apps.JourneyConfig',
     'tinymce',
@@ -35,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 CSRF_COOKIE_SECURE = True
 
