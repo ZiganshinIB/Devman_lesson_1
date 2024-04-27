@@ -17,7 +17,7 @@ def index(request):
         "properties": {
             "title": f"{place.title}",
             "placeId": f"{place.id}",
-            "detailsUrl": reverse('journey:place', args=[place.id]),
+            "detailsUrl": reverse('journey:place', args=[place.pk]),
         }
     } for place in places]
     geo_json = {"type": "FeatureCollection", "features": markers}
@@ -28,7 +28,7 @@ def index(request):
 
 
 def place(request, pk):
-    images = Place.objects.get(id=pk).select_related('images')
+    place = Place.objects.prefetch_related('images').get(id=pk)
     geo_data = {
         "title": f"{place.title}",
         "imgs": [image.image.url for image in place.images.all()],
