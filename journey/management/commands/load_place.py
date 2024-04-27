@@ -13,15 +13,15 @@ from journey.models import Place, ImagePlace
 
 def load_places(url):
     response = requests.get(url)
-    place_json = json.loads(response.content)
+    raw_place = json.loads(response.content)
     place, created = Place.objects.get_or_create(
-        title=place_json['title'],
-        long_description=place_json['description_long'],
-        chort_description=place_json['description_short'],
-        lat=place_json['coordinates']['lat'],
-        lng=place_json['coordinates']['lng'],
+        title=raw_place['title'],
+        long_description=raw_place['description_long'],
+        chort_description=raw_place['description_short'],
+        lat=raw_place['coordinates']['lat'],
+        lng=raw_place['coordinates']['lng'],
     )
-    for img in place_json['imgs']:
+    for img in raw_place['imgs']:
         p = requests.get(img)
         name = img.split('/')[-1]
         image = ImagePlace()
