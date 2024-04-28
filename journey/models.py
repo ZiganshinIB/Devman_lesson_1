@@ -18,7 +18,7 @@ class PlaceManager(models.Manager):
 
 class Place(BaseTimeModel):
 
-    title = models.CharField(max_length=100, db_index=True, verbose_name='Название')
+    title = models.CharField(max_length=100, db_index=True, unique=True, verbose_name='Название')
     short_description = models.TextField(blank=True, verbose_name='Краткое описание')
     long_description = HTMLField(blank=True, verbose_name='Описание')
     lng = models.FloatField(verbose_name='Долгота')
@@ -28,6 +28,7 @@ class Place(BaseTimeModel):
     objects = PlaceManager()
 
     class Meta:
+        unique_together = [('title',)]
         ordering = ['title']
         verbose_name = 'Место'
         verbose_name_plural = 'Места'

@@ -1,9 +1,8 @@
-from django.db.models import Prefetch
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from .models import Place, ImagePlace
+from .models import Place
 
 
 def index(request):
@@ -28,7 +27,7 @@ def index(request):
 
 
 def place(request, pk):
-    place = Place.objects.prefetch_related('images').get(id=pk)
+    place = get_object_or_404(Place, pk=pk)
     geo_data = {
         "title": f"{place.title}",
         "imgs": [image.image.url for image in place.images.all()],
@@ -40,4 +39,3 @@ def place(request, pk):
         }
     }
     return JsonResponse(geo_data, safe=True, json_dumps_params={'ensure_ascii': False, 'indent': 2})
-
