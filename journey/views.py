@@ -27,7 +27,8 @@ def index(request):
 
 
 def place(request, pk):
-    place = get_object_or_404(Place, pk=pk)
+    place = get_object_or_404(Place.objects.prefetch_related('images'), pk=pk)
+    print(place)
     geo_data = {
         "title": f"{place.title}",
         "imgs": [image.image.url for image in place.images.all()],
